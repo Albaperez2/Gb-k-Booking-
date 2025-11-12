@@ -41,24 +41,89 @@
 
 .main {
     padding: 30px;
-    text-align: center;
+    max-width: 900px;
+    margin: auto;
   }
 
-.whatsapp-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 15px 25px;
-    background-color: #25D366;
-    color: white;
-    font-size: 18px;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: background 0.3s;
+.section {
+    margin-bottom: 40px;
   }
 
-.whatsapp-btn:hover {
-    background-color: #1DA851;
-  }
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#list-biens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.bien {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  width: 250px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-indicateur {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin: 10px 0;
+}
+
+.vert {
+  background-color: green;
+}
+
+.rouge {
+  background-color: red;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#payment-section {
+  margin-top: 20px;
+}
+
+.payment-btn {
+  margin: 10px 0;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #ff7f50;
+  color: white;
+  font-size: 14px;
+  width: calc(50% - 20px);
+  margin-right: 10px;
+}
+
+.payment-btn:hover {
+  background-color: #e86e4b;
+}
 
 .footer {
     background-color: #222;
@@ -66,8 +131,7 @@
     text-align: center;
     padding: 20px;
     margin-top: 40px;
-  }
-
+}
 </style>
 </head>
 <body>
@@ -86,47 +150,12 @@
 </div>
 
 <div class="main">
-  <h2>Réservez facilement via WhatsApp</h2>
-  <p>Contactez-nous pour réserver votre résidence, hôtel ou espace événementiel à Bouaké.</p>
-  <a class="whatsapp-btn" href="https://wa.me/22378803353?text=Bonjour,%20je%20souhaite%20réserver..." target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:24px; vertical-align:middle; margin-right:8px;">
-    Réservez via WhatsApp
-  </a>
+
+<!-- Liste des biens avec statut -->
+<div class="section" id="list-biens">
+  <h2>Disponibilité des biens</h2>
+  <div id="biens-container"></div>
 </div>
 
-<div class="footer">
-  <p>Contactez-nous : 0788033535</p>
-  <p>&copy; 2025 Gbêkê Booking. Tous droits réservés.</p>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const supabaseUrl = (" eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dGVneWJldGV1a3J1cG5pc2x1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI5MDk1NjcsImV4cCI6MjA3ODQ4NTU2N30.TnkIKRp81alzWYX72T3JZVsGLewkGO9x3eIrzUYf8Sk" ;
-  const supabaseKey =("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dGVneWJldGV1a3J1cG5pc2x1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjkwOTU2NywiZXhwIjoyMDc4NDg1NTY3fQ.TT14s9EHnXALRfKll1zLPQmccaaLkCo58A62y5u7pFQ
-  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-  async function envoyerMessage() {
-    const nom = document.getElementById("nom").value;
-    const email = document.getElementById("email").value;
-    const message = document.getElementById("message").value;
-
-    const { data, error } = await supabase
-      .from("formulaire_contact")
-      .insert([{ nom, email, message }]);
-
-    if (error) {
-      alert("Erreur : " + error.message);
-    } else {
-      alert("Message envoyé avec succès !");
-    }
-  }
-</script>
-
-<form onsubmit="event.preventDefault(); envoyerMessage();">
-  <input type="text" id="nom" placeholder="Votre nom" required>
-  <input type="email" id="email" placeholder="Votre email" required>
-  <textarea id="message" placeholder="Votre message"></textarea>
-  <button type="submit">Envoyer</button>
-</form>
-
-</body>
-</html>
+<!-- Formulaire de réservation + paiement -->
+<div class="section
