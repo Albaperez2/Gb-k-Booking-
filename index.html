@@ -98,6 +98,35 @@
   <p>Contactez-nous : 0788033535</p>
   <p>&copy; 2025 Gbêkê Booking. Tous droits réservés.</p>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabaseUrl = (" eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dGVneWJldGV1a3J1cG5pc2x1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI5MDk1NjcsImV4cCI6MjA3ODQ4NTU2N30.TnkIKRp81alzWYX72T3JZVsGLewkGO9x3eIrzUYf8Sk" ;
+  const supabaseKey =("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dGVneWJldGV1a3J1cG5pc2x1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjkwOTU2NywiZXhwIjoyMDc4NDg1NTY3fQ.TT14s9EHnXALRfKll1zLPQmccaaLkCo58A62y5u7pFQ
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+  async function envoyerMessage() {
+    const nom = document.getElementById("nom").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+
+    const { data, error } = await supabase
+      .from("formulaire_contact")
+      .insert([{ nom, email, message }]);
+
+    if (error) {
+      alert("Erreur : " + error.message);
+    } else {
+      alert("Message envoyé avec succès !");
+    }
+  }
+</script>
+
+<form onsubmit="event.preventDefault(); envoyerMessage();">
+  <input type="text" id="nom" placeholder="Votre nom" required>
+  <input type="email" id="email" placeholder="Votre email" required>
+  <textarea id="message" placeholder="Votre message"></textarea>
+  <button type="submit">Envoyer</button>
+</form>
 
 </body>
 </html>
